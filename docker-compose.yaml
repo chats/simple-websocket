@@ -1,0 +1,14 @@
+services:
+  websocket-server:
+    build: .
+    ports:
+      - "${PORT:-3000}:${PORT:-3000}"
+    environment:
+      - name=value
+      - PORT=3000
+      - API_KEY=supersecretapikey
+      - WEBSOCKET_PATH=/websocket
+      - WEBHOOK_PATH=/webhook
+    #env_file:
+    #  - .env
+    restart: unless-stopped

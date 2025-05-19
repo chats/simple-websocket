@@ -1,0 +1,21 @@
+{
+  "name": "simple-websocket",
+  "module": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "bun src/server.js",
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "redis": "^5.0.1",
+    "ws": "^8.18.2"
+  }
+}
