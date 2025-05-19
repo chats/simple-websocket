@@ -2,7 +2,7 @@
 ### Redis-Enabled WebSocket + Webhook Server
 
 This is a lightweight WebSocket + Webhook server and optionally using Redis for message broadcasting across multiple instances.
-
+** Created to use with acapy. 
 ---
 
 ### Features

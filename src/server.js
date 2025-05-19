@@ -53,14 +53,24 @@ if (USE_REDIS) {
   }).catch(err => console.error('Redis error:', err));
 }
 
-// Webhook handler
-app.post(WEBHOOK_PATH || '/webhook', async (req, res) => {
+// Dynamic webhook topic route
+app.post(`${WEBHOOK_PATH || '/webhook'}/topic/:topic`, async (req, res) => {
+  const topic = req.params.topic;
   const payload = req.body;
+  const walletId = req.headers['x-wallet-id'];
+
+  //console.log(`📥 Webhook received for topic: ${topic}`);
+  //console.log(`🪪 x-wallet-id: ${walletId}`);
+
+  const message = {
+    topic,
+    payload
+  };
 
   if (USE_REDIS && redis) {
-    await redis.publish('webhook-events', JSON.stringify(payload));
+    await redis.publish('webhook-events', JSON.stringify(message));
   } else {
-    broadcast(payload);
+    broadcast(message);
   }
 
   res.sendStatus(200);
