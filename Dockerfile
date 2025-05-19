@@ -8,7 +8,34 @@ COPY . .
 
 
 # Stage 2: Slim runtime image
-FROM oven/bun:1.1-slim
+#FROM oven/bun:1.1-slim
+FROM debian:bookworm-slim
+
+# Install necessary packages
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    libgcc-s1 \
+    libstdc++6 \
+    libssl3 \
+    libcurl4 \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+
+# Install bun
+RUN apt-get update && apt-get install -y \
+    curl \
+    && curl -fsSL https://bun.sh/install | bash \
+    && rm -rf /var/lib/apt/lists/*
+ENV PATH="/root/.bun/bin:${PATH}"
+# Install bun dependencies
+##RUN bun env add --global \
+#    bun:node \
+#    bun:bun \
+#    bun:bun-libc \
+#    bun:libc \
+#    bun:libssl \
+#    bun:libcurl
 
 # Create non-root user
 RUN addgroup --system app && adduser --system --ingroup app appuser
